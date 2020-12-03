@@ -65,7 +65,7 @@ public class RWayTrie implements Trie {
     }
 
     private void checkMore(Node node, Flag flag) {
-        if (node.lengthNext > 1) {
+        if (node.lengthNext > 1 || node.lengthNext == 0) {
             flag.flag = true;
         }
         for (int i = 0; i < R; i++) {
@@ -83,7 +83,7 @@ public class RWayTrie implements Trie {
                 node.next[charr - CHARSHIFT] = null;
                 node.lengthNext -= 1;
             } else {
-                node.next[charr - CHARSHIFT].wordEnd = false;
+                node.wordEnd = false;
             }
             return;
         }
@@ -92,7 +92,6 @@ public class RWayTrie implements Trie {
 
         deleteRecursive(node.next[(int) charra - CHARSHIFT],
                 newWord, charra, flag);
-
 
         if (!flag.flag) {
             if (node.lengthNext > 1) {

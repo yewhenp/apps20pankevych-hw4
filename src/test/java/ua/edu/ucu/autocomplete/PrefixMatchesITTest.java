@@ -69,6 +69,13 @@ public class PrefixMatchesITTest {
 
         assertEquals(pmWord.size(), 10);
 
+        pmWord.delete("you");
+        result = pmWord.wordsWithPrefix(pref);
+        expResult = new String[]{"yogurt"};
+        assertThat(result, containsInAnyOrder(expResult));
+
+        assertEquals(pmWord.size(), 9);
+
         assertTrue(pmWord.contains("yevhen"));
         assertFalse(pmWord.delete("linux"));
     }
