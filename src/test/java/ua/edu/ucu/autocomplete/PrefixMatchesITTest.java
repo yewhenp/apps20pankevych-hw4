@@ -22,7 +22,7 @@ public class PrefixMatchesITTest {
         pm.load("abc", "abce", "abcd", "abcde", "abcdef");
         pmWord = new PrefixMatches(new RWayTrie());
         pmWord.load("hello yevhen", "how are you", "how do you do",
-                "hey look", "looking at you", "yogurt", "lobster");
+                "hey look", "looking at you", "yogurt", "lobster", "yourself");
     }
 
     @Test
@@ -57,17 +57,20 @@ public class PrefixMatchesITTest {
 
         pref = "yo";
         result = pmWord.wordsWithPrefix(pref);
-        expResult = new String[]{"you", "yogurt"};
+        expResult = new String[]{"you", "yogurt", "yourself"};
+        assertThat(result, containsInAnyOrder(expResult));
+
+        assertEquals(pmWord.size(), 11);
+
+        pmWord.delete("yourself");
+        result = pmWord.wordsWithPrefix(pref);
+        expResult = new String[]{"yogurt", "you"};
         assertThat(result, containsInAnyOrder(expResult));
 
         assertEquals(pmWord.size(), 10);
 
-        pmWord.delete("you");
-        result = pmWord.wordsWithPrefix(pref);
-        expResult = new String[]{"yogurt"};
-        assertThat(result, containsInAnyOrder(expResult));
-
-        assertEquals(pmWord.size(), 9);
+        assertTrue(pmWord.contains("yevhen"));
+        assertFalse(pmWord.delete("linux"));
     }
 
 }

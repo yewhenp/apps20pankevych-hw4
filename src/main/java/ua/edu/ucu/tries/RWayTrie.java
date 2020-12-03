@@ -102,6 +102,9 @@ public class RWayTrie implements Trie {
                 node.next[charr - 96] = null;
                 node.lengthNext -= 1;
             }
+            else {
+                node.next[charr - 96].wordEnd = false;
+            }
             return;
         }
         Character charra = word.charAt(0);
@@ -111,11 +114,12 @@ public class RWayTrie implements Trie {
 
 
         if (!flag.flag){
+            if (node.lengthNext > 1){
+                flag.flag = true;
+                return;
+            }
             node.next[(int) charra - 96] = null;
             node.lengthNext -= 1;
-            if (node.lengthNext > 0){
-                flag.flag = true;
-            }
         }
     }
 
