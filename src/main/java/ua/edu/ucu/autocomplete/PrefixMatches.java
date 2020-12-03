@@ -19,9 +19,9 @@ public class PrefixMatches {
     }
 
     public int load(String... strings) {
-        for (String string: strings){
+        for (String string: strings) {
             String[] wordArray = string.split(" ");
-            for (String word: wordArray){
+            for (String word: wordArray) {
                 if (word.length() > 2) {
                     trie.add(new Tuple(word, word.length()));
                 }
