@@ -14,11 +14,15 @@ import ua.edu.ucu.tries.RWayTrie;
 public class PrefixMatchesITTest {
 
     private PrefixMatches pm;
+    private PrefixMatches pmWord;
 
     @Before
     public void init() {
         pm = new PrefixMatches(new RWayTrie());
         pm.load("abc", "abce", "abcd", "abcde", "abcdef");
+        pmWord = new PrefixMatches(new RWayTrie());
+        pmWord.load("hello yevhen", "how are you", "how do you do",
+                "hey look", "looking at you", "yogurt", "lobster");
     }
 
     @Test
@@ -42,6 +46,28 @@ public class PrefixMatchesITTest {
         String[] expResult = {"abc", "abce", "abcd", "abcde"};
 
         assertThat(result, containsInAnyOrder(expResult));
+    }
+
+    @Test
+    public void testWordsWithPrefixMain() {
+        String pref = "he";
+        Iterable<String> result = pmWord.wordsWithPrefix(pref);
+        String[] expResult = {"hello", "hey"};
+        assertThat(result, containsInAnyOrder(expResult));
+
+        pref = "yo";
+        result = pmWord.wordsWithPrefix(pref);
+        expResult = new String[]{"you", "yogurt"};
+        assertThat(result, containsInAnyOrder(expResult));
+
+        assertEquals(pmWord.size(), 10);
+
+        pmWord.delete("you");
+        result = pmWord.wordsWithPrefix(pref);
+        expResult = new String[]{"yogurt"};
+        assertThat(result, containsInAnyOrder(expResult));
+
+        assertEquals(pmWord.size(), 9);
     }
 
 }

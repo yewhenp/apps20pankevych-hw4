@@ -24,7 +24,7 @@ public class Queue {
         }
         Object value = data.get(0);
         this.data = data.remove(0);
-        size += 1;
+        size -= 1;
         return value;
     }
 
@@ -35,5 +35,9 @@ public class Queue {
 
     public String toString() {
         return data.toString();
+    }
+
+    public int length(){
+        return size;
     }
 }
